@@ -1,0 +1,3 @@
+We have seen two ways to turn callback code into promise code. 
+You can also make APIs that provide both a promise and callback interface. For example, 
+let’s turn fs.readFile into an API that supports both callbacks and promises:

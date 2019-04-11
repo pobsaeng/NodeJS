@@ -1,0 +1,25 @@
+{
+  "name": "NodeApi",
+  "version": "0.0.1",
+  "description": "This Rest API for Nodejs Projects.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "rest",
+    "api"
+  ],
+  "author": "Kraipob Saengkhunthod",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "*",
+    "cors": "*",
+    "es6-promise": "*",
+    "express": "*",
+    "jsonwebtoken": "*",
+    "mysql": "*",
+    "mysql-queries": "*"
+  }
+}

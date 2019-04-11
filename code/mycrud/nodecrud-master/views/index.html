@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<script src="js/styleloader.js"></script>
+<script src="js/scriptloader.js"></script>
+<style>
+th{
+  background-color: #f0f0f0;
+}
+</style>
+</head>
+<body>
+<div style="margin-left:200px; margin-right:200px;">
+<form id="myFormGender" name="myForm" action="javascript:void(0);">
+	<br/><br/>
+	
+	<div class="form-group col-xs-7">
+		<label for="inputfullname">ชื่อ-สกุล</label>
+		<input type="text" id="name" value="" class="form-control" placeholder="ชื่อ-สกุล">
+	</div>
+  
+	<div class="form-group  col-xs-7">
+	<label for="address">ที่อยู</label>
+	<textarea class="form-control" rows="3" value="" id="address" placeholder="ที่อยู่"></textarea>
+	</div>
+
+	<div class="form-group  col-xs-7">
+	<div><b>เพศ</b></div>
+	<div class="radio">
+	  <label><input type="radio" value="ชาย" id="male" name="sex" checked>ชาย </label>
+	</div>
+	<div class="radio">
+	  <label><input type="radio" value="หญิง" id="female" name="sex">หญิง </label>
+	</div>
+	</div>
+	
+	<div class="form-group  col-xs-7">
+	<div class="form-group">
+	<label class="col-xs-2 control-label" for="rolename">Language: </label>
+	<div class="col-xs-12 selectContainer">
+		<select id="multiLang" name="multiLang" class="multiselect-ui form-control" multiple="multiple">
+		<option value="java">Java</option>
+		  <option value="html">HTML</option>
+		  <option value="python">Python</option>
+		  <option value="javascript">JavaScript</option>
+		</select>
+	</div>
+	</div>
+	</div>
+	<div class="form-group  col-xs-8">
+	<div class="col-xs-2"><input onClick="getAddRecordToTable('myFormGender', 'myTableGender')" class="btn btn-default" type="submit" name="OK" value="Add"></div>
+	<div class="col-xs-2"><input onClick="getTableToJson('myTableGender')" class="btn btn-default" type="submit" name="OK" value="Save"></div>
+	<div class="col-xs-2"><input onClick="clearInputText('myFormGender')" class="btn btn-default" type="submit" name="OK" value="Clear"></div>
+	</div>
+</form>
+</div>
+
+<div style="margin-left:50px; margin-right:50px;">
+<table id="myTableGender" class="table table-bordered table-hover">
+<th id="name">ชื่อ-สกุล</th><th id="address">ที่อยู่</th><th id="sex">เพศ</th><th id="lang">ภาษา</th>
+<tr>
+</tr>
+</table>
+</div>
+
+</body>
+</html>

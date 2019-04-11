@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Test UI</title>
+<script src="js/styleloader.js"></script>
+<script src="js/scriptloader.js"></script>
+</head>
+<style>
+
+#gridContainer { padding: 20px; }
+.grid-row > div { 
+	border: 1px solid lightgrey;
+	padding: 7px;
+	/*background-color: aliceblue;*/
+	margin: 5px 0; 
+}
+	
+.collapsibleList li{
+  list-style-image : url('images/saved-search.png');
+  cursor           : auto;
+}
+
+li.collapsibleListOpen{
+  list-style-image : url('images/bubblehover.png');
+  cursor           : pointer;
+}
+
+li.collapsibleListClosed{
+  list-style-image : url('images/remove.png');
+  cursor           : pointer;
+}
+</style>
+<script>
+function highlightCode(node, keywords) {
+  var text = node.textContent;
+  node.textContent = ""; // Clear the node
+
+  var match, pos = 0;
+  while (match = keywords.exec(text)) {
+    var before = text.slice(pos, match.index);
+    node.appendChild(document.createTextNode(before));
+	
+	var span = document.createElement('span');
+	span.style.color = "red";
+	span.appendChild(document.createTextNode(match[0]));
+	
+    var strong = document.createElement("strong");
+    strong.appendChild(document.createTextNode(match[0]));
+	//node.appendChild(strong);
+    node.appendChild(span);
+	
+    pos = keywords.lastIndex;
+  }
+  var after = text.slice(pos);
+  node.appendChild(document.createTextNode(after));
+}
+var languages = {
+  javascript: /\b(function|return|var|document|var)\b/g /* … etc */
+};
+
+function highlightAllCode() {
+  var div = document.body.getElementsByTagName("pre");
+  for (var i = 0; i < div.length; i++) {
+    var div = div[i];
+    var lang = div.getAttribute("id");
+    if (languages.hasOwnProperty(lang))
+      highlightCode(div, languages[lang]);
+  }
+}
+function talksAbout(node, string) {
+  if (node.nodeType == document.ELEMENT_NODE) {
+    for (var i = 0; i < node.childNodes.length; i++) {
+      if (talksAbout(node.childNodes[i], string))
+        return node.childNodes[i];
+    }
+    return false;
+  } else if (node.nodeType == document.TEXT_NODE) {
+    return node.nodeValue.indexOf(string) > -1;
+  }
+}
+
+function instantiateText(text, values) {
+return text.replace(/\{\{(\w+)\}\}/g, function(_, name) {
+  return values[name];
+});
+}
+
+function instantiateTemplate(name, values) {
+  function instantiateText(text) {
+    return text.replace(/\{\{(\w+)\}\}/g, function(_, name) {
+      return values[name];
+    });
+  }
+  function instantiate(node) {
+    if (node.nodeType == document.ELEMENT_NODE) {
+      var copy = node.cloneNode();
+      for (var i = 0; i < node.childNodes.length; i++)
+        copy.appendChild(instantiate(node.childNodes[i]));
+      return copy;
+    } else if (node.nodeType == document.TEXT_NODE) {
+      return document.createTextNode(instantiateText(node.nodeValue));
+    } else {
+      return node;
+    }
+  }
+
+  var template = document.querySelector("#template ." + name);
+  return instantiate(template);
+}
+function forEach(array, action) {
+  var len = array.length;
+  try {
+    for (var i = 0; i < len; i++)
+      action(array[i]);
+  }
+  catch(e) {
+    if (e != Break)
+      throw e;
+  }
+}
+ window.onload = function(){
+	var elem = document.querySelector(".comment");
+	var n = talksAbout(elem, "author");
+	n.innerHTML = "new value";
+	console.log(n);
+	
+	highlightAllCode();
+ }
+</script>
+
+<body>
+
+<div class="comment">
+	<span class="name">{author}</span>
+</div>
+
+<div class="panel">
+<div id="gridContainer">
+	
+<div id="myDiv">
+<div id="home">Java</div>
+</div>
+
+<div class="row grid-row">
+	<div class="col-sm-7">
+	<pre id="javascript">
+	function removeChildEl(el){
+		var element = document.getElementById(el);
+		if(element != null){
+			while (element.hasChildNodes()) {
+				element.removeChild(element.lastChild);
+			}
+		}else{
+			console.log('element is null!');
+		}
+	}
+	</pre>
+	</div>
+</div>
+
+<div class="row grid-row">
+	<div class="col-sm-6">
+	<ul class="collapsibleList">
+	  <li>
+		Parent item
+		<ul>
+		  <li>Child item</li>
+		  <li>Child item</li>
+		</ul>
+	  </li>
+	  <li>
+		Parent item
+		<ul>
+		  <li>Child item</li>
+		  <li>Child item</li>
+		</ul>
+	  </li>
+	</ul>
+	</div>
+</div>
+
+</div>
+</div>
+
+</body>
+</html>

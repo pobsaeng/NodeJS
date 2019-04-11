@@ -1,0 +1,81 @@
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Chat Room</title>
+<link href="style/css/bootstrap.css" rel="stylesheet">
+<link href="style/css/signin.css" rel="stylesheet">
+<script src="style/js/jquery.js"></script> 
+<script src="/socket.io/socket.io.js"></script>
+</head>
+<script type="text/javascript" src="ajax/shoutbox.js"></script>
+<script language="JavaScript" type="text/javascript">
+<script language="JavaScript" type="text/javascript">
+$(function(){
+  $("#web-head").load("/views/head.html"); 
+  $("#web-footer").load("/views/footer.html"); 
+});
+</script>
+<body>
+<div id="web-head"></div>
+
+<div class="container">
+	<div id="error-container"></div>
+	<input id="name" type="text" name="name" value="" onkeypress="handleSetUser(event)" placeholder="กรอกชื่อผู้แชท!">
+	<button type="button" name="button" onclick="setUsername()">กรอกชื่อผู้แชท</button>
+	<br/>
+	
+  <form role="form" class="form-horizontal" id="frm" name="frm">
+    <div class="form-group">
+      <label class="col-sm-1" for="inputEmail1">ชื่อ</label>
+      <div class="col-sm-5"><input type="text" class="form-control" id="nick" placeholder="ชื่อ"></div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-1" for="inputPassword1">ข้อความ</label>
+      <div class="col-sm-5"><input type="text" class="form-control" id="message" placeholder="ข้อความ"></div>
+    </div>
+	<div class="form-group">
+      <label class="col-sm-1" for="inputPassword1"></label>
+      <div class="col-sm-1"><button class="btn btn-info pull-right" onClick="return check_data(frm.nick.value, frm.message.value, 'ADD')">ส่งข้อความ</button></div>
+    </div>
+	
+    <div class="form-group">
+	<div class="col-sm-12">
+	  <label class="col-sm-12">สีข้อความ</label>
+	  <input id="color" type="radio" name="color" value="black" checked />ดำ
+      <input id="color" type="radio" name="color" value="red" />แดง
+      <input id="color" type="radio" name="color" value="blue" />น้ำเงิน
+      <input id="color" type="radio" name="color" value="green" />เขียว
+      <input id="color" type="radio" name="color" value="orange" />ส้ม
+      <input id="color" type="radio" name="color" value="yellow" />เหลือง
+	<div>
+	<div class="col-sm-12">
+	<a href="javascript:add_emotion(':;(')" ><img src="image/anger.PNG" width="31" height="31" border="0"></a>
+	<a href="javascript:add_emotion(':=')"><img src="image/cry.PNG" width="31" height="31" border="0"></a>
+	<a href="javascript:add_emotion('8>')" ><img src="image/grimace.PNG" width="31" height="31" border="0"></a>
+	<a href="javascript:add_emotion(':@')" ><img src="image/angry.PNG" width="31" height="31" border="0"></a>
+	<a href="javascript:add_emotion('(H)')" ><img src="image/cool.PNG" width="31" height="31" border="0"></a>
+	<a href="javascript:add_emotion('8o')" ><img src="image/eek.PNG" width="31" height="31" border="0"></a>
+	<a href="javascript:add_emotion('@>')" ><img src="image/ft.PNG" width="31" height="31" border="0"></a>
+	<a href="javascript:add_emotion('lol')" ><img src="image/lol.PNG" width="31" height="31" border="0"></a>
+	<a href="javascript:add_emotion(':?')" ><img src="image/question.PNG" width="31" height="31" border="0"></a>
+	<a href="javascript:add_emotion(':X')" ><img src="image/razz.PNG" width="31" height="31" border="0"></a>
+	<a href="javascript:add_emotion(':8')" ><img src="image/sad.PNG" width="31" height="31" border="0"></a>
+	<a href="javascript:add_emotion(':$')" ><img src="image/shame.PNG" width="31" height="31" border="0"></a>
+	<a href="javascript:add_emotion('))')" ><img src="image/sleep.PNG" width="31" height="31" border="0"></a>
+	<a href="javascript:add_emotion(':)')" ><img src="image/smile.PNG" width="31" height="31" border="0"></a>
+	<a href="javascript:add_emotion(':P')" ><img src="image/tong.PNG" width="31" height="31" border="0"></a>
+	<a href="javascript:add_emotion(':-O')" ><img src="image/shout.PNG" width="31" height="31" border="0"></a>
+	<a href="javascript:add_emotion('8)')" ><img src="image/surprise.PNG" width="31" height="31" border="0"></a>
+	</div>
+	
+	<div class="form-group">
+      <label class="col-sm-12" for="TextArea">Chat Room:</label>
+      <div class="col-sm-6"><textarea rows="10" class="form-control" id="message-container"></textarea></div>
+    </div>
+    </div>
+
+  </form>
+</div>
+
+<div id="web-footer"></div>
+</body>
+</html>

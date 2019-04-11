@@ -1,0 +1,73 @@
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+	<div class="navbar-inner">
+		<div class="container" id="headerContainer">
+			<div class="navbar-header" id="navbar-header">
+				<!--responsive menu-->
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<!--logo brand-->
+				<a class="navbar-brand"><img src="images/logo.png" alt="Dispute Bills"></a>
+			</div>
+
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse navbar-ex1-collapse">
+				<ul class="nav navbar-nav">
+					<li><a style="cursor:pointer;" onclick="changeHTMLPage('home.html');">Home</a></li>
+					<li><a style="cursor:pointer;" onclick="changeHTMLPage('login.html');">Login</a></li>
+
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Topic<b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a style="cursor:pointer;" onclick="changeHTMLPage('table.html');">Table</a></li>
+							<li><a style="cursor:pointer;" onclick="changeHTMLPage('webstorage.html');">Webstorage</a></li>
+						</ul>
+					</li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-lang="{dom}" data-toggle="dropdown">ES6<b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a style="cursor:pointer;" onclick="changeHTMLPage('event.html');">Rest Parameter</a></li>
+							<li><a style="cursor:pointer;" onclick="changeHTMLPage('jsxyplot.html');">Let</a></li>
+
+						</ul>
+					</li>
+
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Miscellaneous<b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a style="cursor:pointer;" onclick="changeHTMLPage('index.html');">Help</a></li>
+
+						</ul>
+					</li>
+
+
+				</ul>
+
+				<form class="navbar-form navbar-right" role="search">
+					<a class="btn btn-primary" id="language">Login</a>
+				</form>
+
+				<ul class="nav navbar-nav navbar-right">
+					<li class="dropdown">
+						<li>
+						<a>
+							<span style="cursor: pointer;" class="notify-container" id="notify-container">
+							<span style="cursor: pointer;" class="notify-counter" id="notify-counter">83</span>
+							<i class="fa fa-globe"></i>
+							</span>
+						</a>
+						</li>
+						
+						<li><a><i class="glyphicon glyphicon-user" aria-hidden="true"></i></a></li>
+						<li><a><i class="fa fa-language" aria-hidden="true"></i></a></li>
+					</li>
+				</ul>
+
+			</div>
+			<!-- /.navbar-collapse -->
+		</div>
+	</div>
+</nav>

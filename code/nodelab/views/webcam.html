@@ -1,0 +1,20 @@
+<table class="main">
+	<tr>
+		<td valign="top">
+			<div class="border">
+			Live Webcam<br>
+			<script>
+			document.write( webcam.get_html(320, 240) );
+			</script>
+			</div>
+			<br/><input type="button" class="snap" value="SNAP IT" onClick="take_snapshot()">
+		</td>
+		<td width="50">&nbsp;</td>
+		<td valign="top">
+			<div id="upload_results" class="border">
+				Snapshot<br>
+				<img src="images/logo.jpg" />
+			</div>
+		</td>
+	</tr>
+</table>

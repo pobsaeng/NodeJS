@@ -1,0 +1,27 @@
+{
+  "name": "ichat",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "babel": "babel",
+    "webpack": "webpack",
+    "start": "webpack-dev-server --hot"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "connect-multiparty": "^2.0.0",
+    "cookie-parser": "^1.4.3",
+    "express": "3.5.1",
+    "express-myconnection": "^1.0.4",
+    "express-session": "^1.15.2",
+    "method-override": "^2.3.8",
+    "morgan": "^1.8.1",
+    "mysql": "^2.13.0",
+    "node-extjs": "^1.0.1",
+    "socket.io": "^1.7.3",
+    "webpack": "^2.5.0"
+  }
+}

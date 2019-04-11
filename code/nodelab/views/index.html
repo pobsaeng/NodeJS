@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Node Laborary</title>
+	<script src="js/views_js/jquery.js"></script>
+	<script src="js/styleloader.js"></script>
+	<script src="js/scriptloader.js"></script>
+</head>
+<script>
+	var setIntervalSync = function (func, delay) {
+		var intervalFunction, timeoutId, clear;
+		// Call to clear the interval.
+		clear = function () {
+			console.log("Clear!");
+			clearTimeout(timeoutId);
+		};
+		intervalFunction = function () {
+			console.log("Process!");
+			func();
+			timeoutId = setTimeout(intervalFunction, delay);
+			// timeoutId = setTimeout(clear, delay);
+		}
+		// Delay start.
+		timeoutId = setTimeout(intervalFunction, delay);
+		// You should capture the returned function for clearing.
+		return clear;
+	};
+	function intervalFunc(t, func, textEl) {
+		var time = setInterval(function () {
+			var el = document.getElementById(textEl);
+			if (el) {
+				func();
+				clearInterval(time);
+			}
+		}, t);
+	}
+
+	function loadImagesThumb() {
+		var dom = document.getElementById('productList');
+		for (var i = 0; i < 4; i++) { loadThumbnail(dom); }
+	}
+	function changeHtmlPage(el, pathname) {
+		Promise.resolve(ajaxPromise(pathname)).then(function (data) {
+			document.getElementById(el).innerHTML = data;
+		}).catch(function (err) { console.log(err); });
+	};
+	function ajaxPromise(page) {
+		return new Promise(function (resolve, reject) {
+			var request = new XMLHttpRequest();
+			request.open('GET', page);
+			request.onload = function () {
+				if (request.status == 200) {
+					resolve(request.response);
+				} else {
+					reject(Error(request.statusText));
+				}
+			};
+			request.onerror = function () {
+				reject(Error("Error fetching data."));
+			};
+			request.send();
+		});
+	}
+	function indexLoad(el, page) {
+		Promise.resolve(ajaxPromise(page)).then(function (data) {
+			document.getElementById(el).innerHTML = data;
+			loadImagesThumb();
+
+		}).catch(function (err) { console.log(err); });
+	}
+	window.onload = function () {
+		var divs = ['page-header', 'page-content', 'page-footer'];
+		for (var j = 0; j < divs.length; j++) {
+			document.body.appendChild(createTag('div', { id: divs[j] }));
+		}
+
+		var pages = ['tpl/header.html', 'product.html', 'tpl/footer.html'];
+		var promises = [];
+		for (var i in pages) {
+			promises.push(ajaxPromise(pages[i]));
+		}
+
+		Promise.all(promises).then(function (dataArr) {
+			for (var i = 0; i < dataArr.length; i++) {
+				document.getElementById(divs[i]).innerHTML = dataArr[i];
+			}
+			loadImagesThumb();
+
+		}).catch(function (err) { console.log(err); });
+
+
+	};
+
+</script>
+</head>
+
+<body>
+	<div id="indicator"></div>
+</body>
+
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+	<meta charset="UTF-8">
+	<title>Chat</title>
+	<script src="js/views_js/jquery.js"></script>
+	<script src="js/styleloader.js"></script>
+	<script src="js/scriptloader.js"></script>
+	<script src="socket.io/socket.io.js"></script>
+	</head>
+	<style>
+    </style>
+	<script>	
+		function changeHtmlPage(el, pathname) {
+			ajaxLoad("GET", pathname, null, function(xmlHttp){
+				document.getElementById(el).innerHTML = xmlHttp;
+			});
+		};
+		window.onload = function(){
+			changeHtmlPage('page-header', 'tpl/header.html');
+			changeHtmlPage('page-content', 'home.html');
+			changeHtmlPage('page-footer', 'tpl/footer.html');
+		};
+		var user = 'Pob';
+		var socket = io();
+		function sendMessage(){
+			var msg = document.getElementById('message').value;
+			if(msg){
+				socket.emit('msg', {message: msg, user: user});
+			}
+		}
+		
+		socket.on('newmsg', function(data){
+			if(user){
+				addTalk(".chat", data.user, data.message)
+			}
+		})
+	</script>
+	</head>
+    <body>
+		<div id="page-header"></div>
+		<div id="page-content"></div>
+		<div id="page-footer"></div>
+	</body>
+</html>

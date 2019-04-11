@@ -1,0 +1,195 @@
+<html>
+  <head>
+    <title></title>
+    <script src="/socket.io/socket.io.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  </head>
+  <body>
+  <style>
+  table {
+    border-collapse: collapse;
+	}
+	table, th, td {
+		border: 1px solid black;
+		padding: 3px;
+	}
+  </style>
+   <script>
+function groupBy( array , f )
+{
+  var groups = {};
+  array.forEach( function( o )
+  {
+    var group = JSON.stringify( f(o) );
+    groups[group] = groups[group] || [];
+    groups[group].push( o );  
+  });
+  return Object.keys(groups).map( function( group )
+  {
+    return groups[group]; 
+  })
+}
+
+   
+function loadDataTable(){	
+	var socket = io();
+	var tbl = document.getElementById("myTable");
+	
+	socket.on('jsonObject',function(jsonData){
+		var fields = Object.keys(  jsonData[0] );
+		var str = '';
+		
+		str += '<thead><tr>';
+		for(var h = 0; h < fields.length; h++){
+			str += '<th>'+fields[h].toUpperCase()+'</th>';
+		}
+		str += '<th>(EDIT)</th><th>(DELETE)</th></tr><thead>';
+
+		for(var i = 0; i < jsonData.length; i++){
+			str += '<tr>';
+			for(var k = 0; k < fields.length; k++){
+				if(k == 0){
+					str += '<td style="width:30px; text-align: center;">';
+				}
+				else if(k == 3 || k == 4){
+					str += '<td style="width:60px; text-align: center;">';
+				}
+				else if(k == 2){
+					str += '<td style="width:40%;">';
+				}
+				else if(k == 1){
+					str += '<td style="width:65%;">';
+				}
+				else {
+					str += '<td>';
+				}
+
+				str += jsonData[i][fields[k]]+' ';
+				str += '</td>';
+			}
+			str += '<td><a href="getEditData?id='+jsonData[i].id+'">Edit</a></td>';
+			str += '<td><a href="getDeleteData?id='+jsonData[i].id+'">Delete</a></td>';
+			str += '</tr>';
+		 } 
+		 tbl.innerHTML = str;
+	 });
+}
+
+function loadData(){
+	var socket = io();
+	var tbl = document.getElementById("myTable");
+	
+	socket.on('jsonObject',function(jsonData){
+	
+	 var i = 0;
+	 var fieldName = [];
+	 for(var key in jsonData[0]) {
+		fieldName[i] = key;
+		i++;
+	}
+	
+	var str = '';
+	var result = '';
+	 for(var i = 0; i < jsonData.length; i++){
+		for(var key in jsonData[0]){
+			str += '<tr><td>'+jsonData[i][key]+'</td></tr>';
+		}
+		str += '\n';
+	 } 
+	 console.log( str );
+	 tbl.innerHTML = str;	 
+	});
+}
+function arrCompare(items, v){
+	for(var i=0; i<items.length; i++){
+		if(items[i] == v){
+			return true;
+		}
+	}
+	return false;
+}
+
+function createArray(length) {
+    var arr = new Array(length || 0),
+        i = length;
+
+    if (arguments.length > 1) {
+        var args = Array.prototype.slice.call(arguments, 1);
+        while(i--) arr[length-1 - i] = createArray.apply(this, args);
+    }
+
+    return arr;
+}
+function create2DArray(rows) {
+  var arr = [];
+  for (var i=0;i<rows;i++) {
+     arr[i] = [];
+  }
+  return arr;
+}
+function _loadDataTable(){	
+	var tbl = document.getElementById("myTable");
+	var h = 0;
+	var socket = io();
+	socket.on('jsonObject',function(jsonData){
+		var fields = Object.keys(  jsonData[0] );
+		var arr = create2DArray( fields.length ); //5
+		
+		for(var i = 0; i < fields.length; i++){
+			for(var j = 0; j < jsonData.length; j++){
+				arr[i][j] = jsonData[j][fields[i]];
+				//console.log( jsonData[j][fields[i]]  );
+				
+				for(var o in jsonData[j]){
+					if(arrCompare( fields, o) && h < 17){
+						console.log(jsonData[j][fields[i]]  );
+					}else{
+						h = 0;
+					}
+					h++;
+				}
+			}
+		}
+		//print 2D
+		var str = '';
+		var array = create2DArray(2);
+		for(var i = 0; i < 1; i++){
+			for(var j = 0; j < jsonData.length; j++){
+				str += jsonData[j]['id'];
+			}
+		}
+		array[0][0] = str;
+		array[0][1] = "row 2, cell 1", "row 2, cell 2";
+		//var ar = [["row 1, cell 1", "row 1, cell 2"],["row 2, cell 1", "row 2, cell 2"]]
+		//createTable(array);
+		//console.log( ar );
+		createTable( arr );
+	});
+}
+function createTable( tableData ) {
+  var table = document.createElement('table');
+  var tableBody = document.createElement('tbody');
+
+  tableData.forEach(function(rowData) {
+    var row = document.createElement('tr');
+
+    rowData.forEach(function(cellData) {
+      var cell = document.createElement('td');
+      cell.appendChild(document.createTextNode(cellData));
+      row.appendChild(cell);
+    });
+
+    tableBody.appendChild(row);
+  });
+
+  table.appendChild(tableBody);
+  document.body.appendChild(table);
+}
+window.addEventListener("load", function () {
+	loadDataTable();
+});
+</script>
+<table border="1" id="myTable" width="80%"></table>
+<span id="tablearea"/>
+  </body>
+</html>

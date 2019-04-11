@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>JavaScript Template</title>
+<script src="js/styleloader.js"></script>
+<script src="js/scriptloader.js"></script>
+</head>
+<script>
+var jsonProduct = [{ productid:'100020101', productname:'espresso', price:'160', amount:'1' }];
+window.onload = function(){
+	var el = document.querySelector(".productlist");
+	for(var i=0; i<jsonProduct.length; i++){
+		for(var key in jsonProduct[i]){
+			if(jsonProduct[i].hasOwnProperty(key)){
+				var node = searchNode(el, key);
+				node.innerHTML = jsonProduct[i][key];
+			}
+			
+		}
+	}
+ }
+</script>
+<body>
+
+<div style="margin:20px;" class="productlist">
+	<div>{productid}</div>
+	<div>{productname}</div>
+	<div>{price}</div>
+	<div>{amount}</div>
+</div>
+
+</body>
+</html>

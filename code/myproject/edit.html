@@ -1,0 +1,61 @@
+<html>
+  <head>
+    <title></title>
+    <script src="/socket.io/socket.io.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  </head>
+  <body>
+  <style>
+  table {
+    border-collapse: collapse;
+	}
+	table, th, td {
+		border: 1px solid black;
+		padding: 3px;
+	}
+  </style>
+   <script>
+function groupBy( array , f )
+{
+  var groups = {};
+  array.forEach( function( o )
+  {
+    var group = JSON.stringify( f(o) );
+    groups[group] = groups[group] || [];
+    groups[group].push( o );  
+  });
+  return Object.keys(groups).map( function( group )
+  {
+    return groups[group]; 
+  })
+}
+
+   
+function loadDataTable(){	
+	var socket = io();
+	var tbl = document.getElementById("inputEdit");
+	
+	socket.on('jsonObject',function(jsonData){
+		var fields = Object.keys(  jsonData[0] );
+		var str = '';
+		str += '<a href="loadData">Back</a>';
+		str += '<br/>';
+		str += '<from id="myFrom"><div style="padding-bottom:5px;">';
+		for(var i = 0; i < jsonData.length; i++){
+			for(var k = 0; k < fields.length; k++){
+				str += fields[k].toUpperCase()+' : <input type="text" value="'+jsonData[i][fields[k]]+'"></input> ';
+			}
+			str += '<br/>';
+		 } 
+		 str += '</di><from/>';
+		 tbl.innerHTML = str;
+	 });
+}
+
+window.addEventListener("load", function () {
+	loadDataTable();
+});
+</script>
+<span id="inputEdit"/>
+  </body>
+</html>

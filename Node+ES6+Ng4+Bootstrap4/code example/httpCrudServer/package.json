@@ -1,0 +1,10 @@
+{
+    "name": "httpcrudserver",
+    "version": "1.0.0",
+    "description": "This is a web server for handling our CRUD example",
+    "dependencies": {
+        "express": "4.14.1",
+        "cors": "2.8.1",
+        "body-parser": "1.16.0"
+    }
+}

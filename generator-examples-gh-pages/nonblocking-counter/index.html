@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Nonblocking counter</title>
+
+    <!-- Load Babel scripts -->
+    <script src="node_modules/babel/browser-polyfill.js"></script>
+    <script src="node_modules/babel/browser.js"></script>
+</head>
+<body>
+    <h1>Nonblocking counter</h1>
+
+    Counter: <span id="counter"></span>
+    <p>
+    GitHub project: <a href="https://github.com/rauschma/generator-examples">generator-examples</a>
+
+    <script type="text/babel">
+        function* countUp(start = 0) {
+            while (true) {
+                start++;
+                yield* displayCounter(start);
+            }
+        }
+        function* displayCounter(counter) {
+            const counterSpan = document.querySelector('#counter');
+            counterSpan.textContent = String(counter);
+            yield; // pause
+        }
+        function run(generatorObject) {
+            if (!generatorObject.next().done) {
+                // Add a new task to the event queue
+                setTimeout(function () {
+                    run(generatorObject);
+                }, 1000);
+            }
+        }
+        run(countUp());
+    </script>
+</body>
+</html>

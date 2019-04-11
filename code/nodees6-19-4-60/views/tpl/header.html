@@ -1,0 +1,61 @@
+<nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+	<div class="container" id="headerContainer">
+		<div class="navbar-header" id="navbar-header">
+			<!--responsive menu-->
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<!--logo brand-->
+			<a class="navbar-brand"><img src="images/logo.png" alt="Dispute Bills"></a>
+		</div>
+
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="collapse navbar-collapse navbar-ex1-collapse">
+			<ul class="nav navbar-nav">
+
+				<li><a style="cursor:pointer;" onclick="changeHTMLPage('html/home/home.html');">{home}</a></li>
+
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">{es6}<b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						<li><a style="cursor:pointer;" onclick="changeHTMLPage('html/table/createtable.html');">{table}</a></li>
+						<li><a style="cursor:pointer;" onclick="changeHTMLPage('html/webstorage/webstorage.html');">{webstorage}</a></li>
+					</ul>
+				</li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">{dom}<b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						<li><a style="cursor:pointer;" onclick="changeHTMLPage('html/dom/event.html');">{event}</a></li>
+
+					</ul>
+				</li>
+
+
+			</ul>
+
+			<form class="navbar-form navbar-right" role="search">
+				<a class="btn btn-primary" style="cursor:pointer;" id="language"></a>
+			</form>
+
+			<ul class="nav navbar-nav navbar-right">
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span><b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						<li><a href="#"><span class="glyphicon glyphicon-credit-card"></span>{profile}</a></li>
+						<li>
+							<a href="#"><span class="glyphicon glyphicon-shopping-cart"></span>{cart}</a>
+						</li>
+						<li><a href="#"><span class="badge pull-right"></span><span class="glyphicon glyphicon-usd"></span>{pay}</a></li>
+						<li><a href="#"><span class="glyphicon glyphicon-log-out"></span>{signout}</a></li>
+					</ul>
+				</li>
+			</ul>
+
+		</div>
+		<!-- /.navbar-collapse -->
+
+	</div>
+</nav>

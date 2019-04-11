@@ -1,0 +1,28 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link href="http://code.jquery.com/qunit/qunit-2.1.1.css" rel="stylesheet"
+</head>
+<body>
+    <div id="qunit"></div>
+    <script src="http://code.jquery.com/qunit/qunit-2.1.1.js"></script>
+    <script src="car.js"></script>
+    <script>
+        QUnit.test("Mileage Test", function (assert) {
+            var car = new Car();
+            car.start();
+            var miles = car.getMiles();
+            assert.ok(miles === 100, "Miles is 100!");
+        });
+
+        QUnit.test("Price test", function (assert) {
+            var car = new Car();
+            var expected = 30000;
+            var pricing = car.getPricing();
+            var actual = pricing.basePrice;
+            assert.equal(actual, expected, "Base price is correct!");
+        });
+    </script>
+</body>
+</html>

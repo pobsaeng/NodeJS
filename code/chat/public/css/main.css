@@ -1,0 +1,11 @@
+#page-content {margin-top:90px;}
+
+.navbar-brand {
+  padding: 0px;
+}
+.navbar-brand>img {
+  height: 100%;
+  padding: 15px;
+  width: auto;
+}
+

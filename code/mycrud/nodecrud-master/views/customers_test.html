@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+    <head>
+		<meta charset="UTF-8">
+        <title></title>
+    </head>
+	<script src="js/styleloader.js"></script>
+	<script src="js/scriptloader.js"></script>
+	<script>
+
+	</script>
+    <body>
+	<div style="margin:10px">
+	  <div id="tooltip"></div>
+	  <ol id="subject" style="padding:0px;"></ol>
+	  <div id="container"/>
+	  <button onclick="displayTable()" class="btn btn-primary">Load!</button>
+	  <button type="submit" class="btn btn-primary" onClick="Javascript:getForm();">Save to Json</button>
+	  <br/><br/>
+	  <form id="myFromInput">
+		<button onclick="textFieldValidation('กรุณากรอกฟิลด์')" class="btn btn-default">Validate</button>
+		<div style="margin-top:10px;" id="txtFields"/>
+	  </form>
+	  <br/><br/>
+	  
+	  <div style="margin-left:100px; margin-right:100px;">
+	  <form id="myForm" name="myForm" action="javascript:void(0);">
+		<label for="inputfullname">ชื่อ-สกุล</label>
+        <div class="form-group">
+			<input type="text" onfocus="if(this.value == 'value') { this.value = ''; }" class="form-control" id="fullname" placeholder="ชื่อ-สกุล">
+		</div>
+	  
+	    <div class="form-group">
+		<label for="address">ที่อยู่</label>
+		<textarea class="form-control" rows="5" id="address" placeholder="ที่อยู่"></textarea>
+		</div>
+
+		<div><b>เพศ</b></div>
+		<div class="radio">
+		  <label><input type="radio" id="male" name="male">ชาย </label>
+		</div>
+		<div class="radio">
+		  <label><input type="radio" id="female" name="female">หญิง </label>
+		</div>
+		
+		<div><b>หนังสือที่สนใจ</b></div>
+		<div class="checkbox">
+		<label><input type="checkbox" id="Sec1" name="Sec1">คณิตศาสตร์</label>
+	    </div>
+		<div class="checkbox">
+		<label><input type="checkbox" id="Sec2" name="Sec2">วิทยาศาสตร์</label>
+	    </div>
+		<div class="checkbox">
+		<label><input type="checkbox" id="Sec3" name="Sec3">ภาษาไทย</label>
+	    </div>
+		<div class="checkbox">
+		<label><input type="checkbox" id="Sec4" name="Sec4">ศิลปะ</label>
+	    </div>
+		
+		<div class="form-group">
+        <label class="col-xs-2 control-label">Color: </label>
+        <div class="col-xs-5 selectContainer">
+            <select class="form-control" id="singleColor" name="singleColor">
+               <option value="volvo">Red</option>
+			  <option value="saab">Blue</option>
+			  <option value="mercedes">Green</option>
+			  <option value="audi">Yellow</option>
+            </select>
+        </div>
+		</div>
+		</br></br>
+		<div class="form-group">
+		<label class="col-xs-2 control-label" for="rolename">Language: </label>
+		<div class="col-xs-5 selectContainer">
+			<select id="multiLang" name="multiLang" class="multiselect-ui form-control" multiple="multiple">
+			<option value="java">Java</option>
+			  <option value="html">HTML</option>
+			  <option value="python">Python</option>
+			  <option value="javascript">JavaScript</option>
+			</select>
+		</div>
+		</div>
+		<br/><br/><br/><br/>
+		<div><input onClick="getForm()" class="btn btn-default" type="submit" name="OK" value="Insert"></div>
+	</form>
+	</div>
+	
+	</div>
+  </div>
+  
+    </body>
+</html>

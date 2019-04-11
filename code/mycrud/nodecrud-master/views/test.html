@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Test UI</title>
+<script src="js/styleloader.js"></script>
+<script src="js/scriptloader.js"></script>
+</head>
+<style>
+ /* .table-hover tbody tr:hover,
+	.table-hover tbody tr:hover td,
+	.table-hover tbody tr:hover th{
+		background:#22313F !important;
+		color:#fff !important;
+	} */
+</style>
+<script>
+function tableGenerator(el, items, callbackCell, callbackRow, funComplete){
+	var fields=[], c=0;
+	for(var key in items[0]){
+		fields[c] = key;
+		c++;
+	}
+	
+	var table = createTag("table", {id:'iTable',
+		class:"table table-condensed table-bordered table-hover",
+		style:"padding:10px;"
+	});
+
+	var thead = createTag("thead", {});
+	var trh = createTag("tr", {});
+	for(var a=0; a<fields.length; a++){
+		var tdh = createTag("th", {}, fields[a]);
+		if(a == 3) tdh.innerHTML = '<input id="headCheck" type="checkbox"/>';
+		trh.appendChild( tdh );
+		thead.appendChild(trh);
+		table.appendChild(thead);
+	}
+
+	var tbody = createTag("tbody", {});
+	for(var i=0; i<items.length; i++){
+		var tr = createTag("tr", {});
+		for(var j=0; j<fields.length; j++){
+			var td = createTag("td", {class:"td", style:"padding:5px;"}, ""+items[i][ fields[j] ] );
+			tr.appendChild( callbackCell(td, j, i, table) );
+		}
+		tbody.appendChild( callbackRow(tr, i) );
+	}
+	table.appendChild(tbody);
+	document.getElementById(el).appendChild(table);
+	
+	var result = columnTotal(el, 4);
+	console.log(result);
+}
+
+ var notes = JSON.parse(localStorage.getItem("notes")) || {"list": ""};
+ function getId(rowIndex){
+	alert(rowIndex);
+ }
+ window.onload = function(){
+	document.body.appendChild(createTag("br"));
+
+	var myLabel1 = createTag("label", {class:"form-group"}, 'รายการ');
+	var myLabel2 = createTag("div", {class:"form-group"}, 'ติชม');
+	
+	var myDiv1 = createTag("div",{id:'myDive', class:"col-xs-11", style:'padding:10px;'});
+	var myDiv2 = createTag("div",{id:'myDive', class:"col-xs-11", style:'padding:10px;'});
+	var myDiv3 = createTag("div",{id:'myDive', class:"col-xs-11", style:'padding:10px;'});
+	var select = createTag("select", {id:'list', class:"multiselect-ui form-control"});
+	var btnAdd = createTag("button", {class:"col-xs-1 btn btn-primary"}, "Add");
+	var textarea = createTag("textarea", {
+		id:"currentnote", 
+		rows:"5", 
+		id:"address", 
+		class:"col-xs-10 form-control"
+	});
+	
+	myDiv1.appendChild(myLabel1);
+	myDiv1.appendChild(select);
+	myDiv2.appendChild(btnAdd);
+	myDiv3.appendChild(myLabel2);
+	myDiv3.appendChild(textarea);
+
+	document.querySelectorAll('#myInput')[0].appendChild(myDiv1);
+	document.querySelectorAll('#myInput')[0].appendChild(myDiv3);
+	document.querySelectorAll('#myInput')[0].appendChild(myDiv2);
+
+	select.addEventListener("change", function() {
+		textarea.value = notes[select.value];
+	});
+	textarea.addEventListener("change", function() {
+		notes[select.value] = textarea.value;
+		saveToStorage();
+	});
+	
+	loadData(select, textarea);
+	
+	
+	loadCustomer();
+	
+	
+	btnAdd.addEventListener("click", function(event) {
+		 event.preventDefault();
+		 //addNote(select, textarea);
+		 columnTotal("iTable", 4);
+		 //createCell("iTable", tr, result);
+		 //insertLastRow("iTable", result);
+	});
+ }
+ 
+ function columnTotal(el, colNo){
+	var result = 0;
+	var table = document.getElementById(el); 		   
+	var tableBody = document.getElementsByTagName("tbody").item(0);
+
+	var tr = tableBody.rows.length;
+	for (var i=0; i<tr; i++){
+	   var trEl = tableBody.rows[i];
+	   var tdEl = trEl.cells[ colNo ];			
+	   var textNode = tdEl.childNodes.item(0);
+	   
+	   var thisNumber = parseFloat( textNode.childNodes.item(0).value );
+	   //var thisNumber = parseFloat(textNode.data);
+	   if (!isNaN(thisNumber))
+		 result += thisNumber;
+	 }
+	 
+	return result;
+		
+ }
+ function loadData(select, textarea){
+	for (var name in notes){
+	  if (notes.hasOwnProperty(name)){
+		addToList(name, select);
+	  }
+	}
+	textarea.value = notes[select.value];
+ }
+ function addToList(name, select) {
+	var option = document.createElement("option");
+	option.textContent = name;
+	select.appendChild(option);
+ }  
+ function saveToStorage() {
+	localStorage.setItem("notes", JSON.stringify(notes));
+ }
+ function addNote(select, textarea) {
+	var name = prompt("Note name", "");
+	if (!name) return;
+	if (!notes.hasOwnProperty(name)) {
+	  notes[name] = "";
+	  addToList(name, select);
+	  saveToStorage();
+	}
+	select.value = name;
+	textarea.value = notes[name];
+ }
+ function cellCheckboxSelected(cell){
+		var chk = cell.childNodes.item(1).childNodes[0].checked;		
+		if(!chk){
+			cell.childNodes.item(1).childNodes[0].checked = true;
+		}else{
+			cell.childNodes.item(1).childNodes[0].checked = false;
+		}
+		
+		var headCheck = document.querySelector('input[id=headCheck]');
+		headCheck.checked = headCheckStatus('iTable', 3);
+		//console.log( headCheckStatus('iTable', 3) );
+ }
+ function checkboxClicked(event, colIndex, rowIndex){
+		var table = document.getElementById('iTable'); 		   
+		var tableBody = document.getElementsByTagName("tbody").item(0);
+
+		var trEl = tableBody.rows[rowIndex];
+		var tdEl = trEl.cells[ colIndex ];			
+		cellCheckboxSelected(tdEl);
+		
+		var headCheck = document.querySelector('input[id=headCheck]');
+		headCheck.checked = headCheckStatus('iTable', 3);
+
+ }
+ function loadCustomer(){
+	 ajaxProcess('/getcustomers', 'GET', function(xmlhttp) {
+		var result = JSON.parse( xmlhttp.responseText );	 
+		var items = result.data;
+
+		var renderTo = 'myTbl';
+		
+		var bool = tableGenerator(renderTo, items, function(td, colIndex, rowIndex){
+			if(colIndex == 0){
+				td.innerHTML = '<span><a href="javascript:getId('+td.innerHTML+')">'+td.innerHTML+'<img style="padding-left:2px;" src="images/bubblehover.png" alt="no img" /></a></span>';
+			}
+			if(colIndex == 3){
+				td.innerHTML = td.innerHTML+'<span style="padding-left:5px;"><input type="checkbox" onclick="checkboxClicked(this,'+colIndex+','+rowIndex+');"/></span>';
+			}
+			if(colIndex == 4){
+				td.innerHTML = '<span><input type="number" value="'+td.innerHTML+'" style="width:88px;"/></span>';
+			}
+			return td;
+		},
+		function(tr, index){
+			tr.onclick = function (row) {
+				if (tr.rowIndex == 0) return;
+				
+				
+				//var record = rowToJson(tr, getHeader(items[0]) );
+				//console.log( record );
+				//console.log( removeHtml(row.target.innerHTML) );
+				
+			}
+			return tr;
+		});
+
+		onCellClick("iTable", 3, function(cell, rowIndex){
+			cellCheckboxSelected(cell);
+		});
+		
+		var headCheck = document.querySelector('input[id=headCheck]');
+		headCheck.addEventListener('change', function(event){
+			 if (headCheck.checked) {
+				checkedAll("iTable", 3);
+				
+			} else {
+				unCheckedAll("iTable", 3);
+			}
+		});
+		 
+	});
+ }
+ function headCheckStatus(el, colNo){
+	var headStatus = false;
+	var checkedCount = 0;
+	var table = document.getElementById(el); 		   
+	var tableBody = document.getElementsByTagName("tbody").item(0);
+
+	var tr = tableBody.rows.length;
+	for (var i=0; i<tr; i++){
+	   var trEl = tableBody.rows[i];
+	   var tdEl = trEl.cells[ colNo ];	
+	   var chk = tdEl.childNodes.item(1).childNodes[0].checked
+	   if(chk){
+		checkedCount++;
+	   }
+	}
+	if(rowCount(el) == checkedCount){
+		headStatus = true
+	}
+	
+	return headStatus;
+ }
+ function rowCount(el){
+	var recordCount = 0;
+	var table = document.getElementById(el); 		   
+	var tableBody = document.getElementsByTagName("tbody").item(0);
+
+	var tr = tableBody.rows.length;
+	for (var i=0; i<tr; i++){	
+	   recordCount++;
+	}
+	return recordCount;
+ }
+ function checkedAll(el, colNo){
+	var table = document.getElementById(el); 		   
+	var tableBody = document.getElementsByTagName("tbody").item(0);
+
+	var tr = tableBody.rows.length;
+	for (var i=0; i<tr; i++){
+	   var trEl = tableBody.rows[i];
+	   var tdEl = trEl.cells[ colNo ];			
+	   var chk = tdEl.childNodes.item(1).childNodes[0].checked = true;		
+	}
+ }
+ function unCheckedAll(el, colNo){
+	var table = document.getElementById(el); 		   
+	var tableBody = document.getElementsByTagName("tbody").item(0);
+
+	var tr = tableBody.rows.length;
+	for (var i=0; i<tr; i++){
+	   var trEl = tableBody.rows[i];
+	   var tdEl = trEl.cells[ colNo ];			
+	   var chk = tdEl.childNodes.item(1).childNodes[0].checked = false;		
+	}
+ }
+ function getRowChecked(el, colNo){
+	var table = document.getElementById(el); 		   
+	var tableBody = document.getElementsByTagName("tbody").item(0);
+
+	var tr = tableBody.rows.length;
+	for (var i=0; i<tr; i++){
+	   var trEl = tableBody.rows[i];
+	   var tdEl = trEl.cells[ colNo ];			
+	   var chk = tdEl.childNodes.item(1).childNodes[0].checked;
+	   
+	   if(chk){
+			//console.log(tdEl.childNodes.item(0));
+			var record = rowToJson(trEl, ['id','title','authors','price','stock'] );
+			console.log( record );
+	   }
+		
+	}
+		
+ }
+</script>
+
+<body>
+<div id="myInput"></div>
+<div id="myTbl" class="col-xs-11"></div>
+</body>
+</html>

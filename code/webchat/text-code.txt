@@ -1,0 +1,26 @@
+var socket = io();
+function setUsername(){
+	socket.emit('_username', document.getElementById('name').value);
+}
+
+var user;
+socket.on('_userSet', function(data){
+	user = user.username;
+	document.body.innerHTML = '[ชื่อผู้แชท]<span>'+user+'</span><br/><br/>\
+	<input type="text" class="form-control" id="nick" placeholder="ชื่อ">';
+});
+
+function sendMessage(){
+	var msg = document.getElementById('message').value;
+	if(msg){
+		socket.emit('msg', {message: msg, user: user});
+	}
+	document.getElementById('message').value = '';
+	
+	socket.on('newmsg', function(data){
+		if(user){
+			var msg = '<div><b>'+data.user+'</b>:<span>'+data.message+'</span>';
+			document.getElementById('message-container').innerHTML = msg;
+		}
+	});
+} 

@@ -1,0 +1,16 @@
+<div class="row grid-row">
+  <div class="col-sm-7">
+    <pre id="function">
+	function removeChildEl(el){
+		var element = document.getElementById(el);
+		if(element != null){
+			while (element.hasChildNodes()) {
+				element.removeChild(element.lastChild);
+			}
+		}else{
+			console.log('element is null!');
+		}
+	}
+	</pre>
+  </div>
+</div>

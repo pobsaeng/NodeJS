@@ -1,0 +1,87 @@
+<nav class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+	<div class="container">
+		<div class="navbar-header">
+			<!--responsive menu-->
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<!--logo brand-->
+			<a class="navbar-brand"><img src="images/logo.png" alt="Dispute Bills"></a>
+		</div>
+
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="collapse navbar-collapse navbar-ex1-collapse">
+			<ul class="nav navbar-nav">
+
+				<li><a style="cursor:pointer;" onclick="indexLoad('page-content', 'product.html');">JavaScript</a></li>
+
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">ES6<b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						<li><a style="cursor:pointer;" onclick="changeHtmlPage('page-content', 'modal.html'); showModal();">Modal Dialog</a></li>
+					</ul>
+				</li>
+
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Boot & JS<b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						<li><a style="cursor:pointer;" onclick="changeHtmlPage('page-content', 'modal.html'); showModal();">Modal Dialog</a></li>
+					</ul>
+				</li>
+
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">HTML5 & JS<b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						<li><a style="cursor:pointer;" onclick="changeHtmlPage('page-content', 'modal.html'); showModal();">Modal Dialog</a></li>
+					</ul>
+				</li>
+
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">CSS<b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						<li><a style="cursor:pointer;" onclick="changeHtmlPage('page-content', 'modal.html'); showModal();">Modal Dialog</a></li>
+					</ul>
+				</li>
+
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">NodeJS<b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						<li><a style="cursor:pointer;" onclick="changeHtmlPage('page-content', 'modal.html'); showModal();">Modal Dialog</a></li>
+					</ul>
+				</li>
+
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">SQL<b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						<li><a style="cursor:pointer;" onclick="changeHtmlPage('page-content', 'form.html');">Modal Dialog</a></li>
+					</ul>
+				</li>
+
+			</ul>
+
+			<form class="navbar-form navbar-right" role="search">
+				<a onclick="changeHtmlPage('page-content', 'login.html');" class="btn btn-primary" style="cursor:pointer;">Sign in</a>
+			</form>
+
+			<ul class="nav navbar-nav navbar-right">
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span><b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						<li><a href="#"><span class="glyphicon glyphicon-credit-card"></span> Profile</a></li>
+						<li>
+							<a href="#"></span><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a>
+						</li>
+						<li><a href="#"><span class="badge pull-right"></span><span class="glyphicon glyphicon-usd"></span> Pay</a></li>
+						<li><a href="#"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+					</ul>
+				</li>
+			</ul>
+
+		</div>
+		<!-- /.navbar-collapse -->
+
+	</div>
+</nav>

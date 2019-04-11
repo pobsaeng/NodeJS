@@ -1,0 +1,94 @@
+<div id="gridContainer">
+    <div class="row grid-row">
+        <div class="col-sm-9 col-md-offset-3">
+            <div class="form-group col-xs-7">
+                <label for="inputfullname">{firstname}</label>
+                <input type="text" id="firstname" class="form-control" placeholder="{firstname}">
+            </div>
+
+            <div class="form-group  col-xs-7">
+                <label for="address">{address}</label>
+                <textarea class="form-control" rows="3" id="address" placeholder="{address}"></textarea>
+            </div>
+
+            <div class="form-group  col-xs-7">
+                <label for="sel1">{selectone}</label>
+                <select class="form-control" id="selectone">
+                    <option value="01">Select 1</option>
+                    <option value="02">Select 2</option>
+                    <option value="03">Select 3</option>
+                    <option value="04">Select 4</option>
+                </select>
+            </div>
+
+            <div class="form-group  col-xs-7">
+                <div><label style="text-decoration: underline;">{sex}</label></div>
+                <div class="radio-inline">
+                    <label><input type="radio" value="M" id="male" name="sex" checked=true>{male}</label>
+                </div>
+                <div class="radio-inline">
+                    <label><input type="radio" value="F" id="female" name="sex">{female}</label>
+                </div>
+            </div>
+
+            <div class="form-group  col-xs-7">
+                <div class="form-group">
+                    <label class="control-label" for="rolename">{programminglan}</label>
+                    <select id="multiLang" name="multiselect" class="multiselect-ui form-control" multiple="multiple">
+                        <option value="java">Java</option>
+                        <option value="html">HTML</option>
+                        <option value="python">Python</option>
+                        <option value="javascript">JavaScript</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group col-xs-7">
+                <img src="images/argiano.jpg" id="thumb" class="img-responsive img-thumbnail" alt="Cinque Terre" width="150" height="100">
+
+                <div class="form-group" style="padding: 10px 35px;">
+                    <span class="btn btn-default btn-file">
+                        {browse} <input type="file" id="photo" name="photo[]">
+                    </span>
+                </div>
+            </div>
+
+            <div class="form-group  col-xs-7">
+                <div><label style="text-decoration: underline;">{optionlabel}</label></div>
+                <div class="checkbox-inline">
+                    <label><input type="checkbox" id="checkbox1">{option1}</label>
+                </div>
+                <div class="checkbox-inline">
+                    <label><input type="checkbox" id="checkbox2">{option2}</label>
+                </div>
+                <div class="checkbox-inline">
+                    <label><input type="checkbox" id="checkbox3">{option3}</label>
+                </div>
+                <div class="checkbox-inline">
+                    <label><input type="checkbox" id="checkbox4">{option4}</label>
+                </div>
+            </div>
+
+            <div class="form-group  col-xs-7">
+                <div class="form-group">
+                    <label for="email">{email}</label>
+                    <input type="email" class="form-control" id="email">
+                </div>
+                <div class="form-group">
+                    <label for="pwd">{password}</label>
+                    <input type="password" class="form-control" id="password">
+                </div>
+            </div>
+
+            <div class="form-group  col-xs-7">
+                <span class="form-group">
+                    <input type="submit" id="btnAdd" class="btn btn-primary" value="{add}">
+                    <input type="submit" class="btn btn btn-info" value="{save}">
+                    <input type="submit" class="btn btn-success" value="{clear}">
+                </span>
+            </div>
+
+        </div>
+    </div>
+</div>
+</div>

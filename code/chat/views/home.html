@@ -1,0 +1,82 @@
+<div class="container">
+    <div class="row form-group">
+        <div class="col-xs-12 col-md-offset-2 col-md-8 col-lg-8 col-lg-offset-2">
+            <div class="panel panel-primary">
+			
+                <div class="panel-heading">
+                    <span class="glyphicon glyphicon-comment"></span> Comments
+                    <div class="btn-group pull-right">
+                        <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                            <span class="glyphicon glyphicon-chevron-down"></span>
+                        </button>
+                        <ul class="dropdown-menu slidedown">
+                            <li><a href="http://www.jquery2dotnet.com"><span class="glyphicon glyphicon-refresh">
+                            </span>Refresh</a></li>
+                            <li><a href="http://www.jquery2dotnet.com"><span class="glyphicon glyphicon-ok-sign">
+                            </span>Available</a></li>
+                            <li><a href="http://www.jquery2dotnet.com"><span class="glyphicon glyphicon-remove">
+                            </span>Busy</a></li>
+                            <li><a href="http://www.jquery2dotnet.com"><span class="glyphicon glyphicon-time"></span>
+                                Away</a></li>
+                            <li class="divider"></li>
+                            <li><a href="http://www.jquery2dotnet.com"><span class="glyphicon glyphicon-off"></span>
+                                Sign Out</a></li>
+                        </ul>
+						
+                    </div>
+                </div>
+
+				
+				<!--Chat-->
+                <div class="panel-body body-panel">
+                    <ul class="chat">
+					
+                        <li class="left clearfix">
+						<span class="chat-img pull-left">
+                            <img src="images/you.png" alt="User Avatar" class="img-circle" />
+                        </span>
+                            <div class="chat-body clearfix">
+                                <div class="header">
+                                    <strong class="primary-font">Jack Sparrow</strong> <small class="pull-right text-muted">
+                                        <span class="glyphicon glyphicon-time"></span>12 mins ago</small>
+                                </div>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
+                                    dolor, quis ullamcorper ligula sodales.
+                                </p>
+                            </div>
+                        </li>
+						
+                        <li class="right clearfix"><span class="chat-img pull-right">
+                            <img src="images/me.png" alt="User Avatar" class="img-circle"/>
+                        </span>
+                            <div class="chat-body clearfix">
+                                <div class="header">
+                                    <small class=" text-muted"><span class="glyphicon glyphicon-time"></span>13 mins ago</small>
+                                    <strong class="pull-right primary-font">Bhaumik Patel</strong>
+                                </div>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
+                                    dolor, quis ullamcorper ligula sodales.
+                                </p>
+                            </div>
+                        </li>
+						
+                    </ul>
+                </div>
+				
+                <div class="panel-footer clearfix">
+					<div class="message_write">
+					 <textarea id="message" class="form-control" rows="3" placeholder="type a message"></textarea>
+					 <div class="clearfix"></div>
+					 <div class="chat_bottom">
+					 <a href="#" class="pull-left upload_btn" style="margin-top: 5px"><i class="fa fa-cloud-upload" aria-hidden="true"></i>Add Files</a>
+					<a href="#" onclick="sendMessage()" class="pull-right btn btn-warning" style="margin-top: 8px">Send</a>
+					</div>
+					</div>
+				</div> 
+			
+            </div>
+        </div>
+    </div>
+</div>

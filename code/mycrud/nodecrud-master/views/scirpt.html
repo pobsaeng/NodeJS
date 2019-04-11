@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title></title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="js/styleloader.js"></script>
+<script src="js/scriptloader.js"></script>
+<script>
+function highlightCode(node, keywords) {
+  var text = node.textContent;
+  node.textContent = ""; // Clear the node
+
+  var match, pos = 0;
+  while (match = keywords.exec(text)) {
+    var before = text.slice(pos, match.index);
+    node.appendChild(document.createTextNode(before));
+	
+	var span = document.createElement('span');
+	span.style.color = "red";
+	span.appendChild(document.createTextNode(match[0]));
+	
+    var strong = document.createElement("strong");
+    strong.appendChild(document.createTextNode(match[0]));
+	//node.appendChild(strong);
+    node.appendChild(span);
+	
+    pos = keywords.lastIndex;
+  }
+  var after = text.slice(pos);
+  node.appendChild(document.createTextNode(after));
+}
+var languages = {
+  javascript: /\b(function|return|var|document|var)\b/g /* … etc */
+};
+
+function highlightAllCode() {
+  var div = document.body.getElementsByTagName("DIV");
+  for (var i = 0; i < div.length; i++) {
+    var div = div[i];
+    var lang = div.getAttribute("id");
+    if (languages.hasOwnProperty(lang))
+      highlightCode(div, languages[lang]);
+  }
+}
+function columnTotal(el, colNo){
+	var result = 0;
+	var table = document.getElementById(el); 		   
+	var tableBody = document.getElementsByTagName("tbody").item(0);
+
+	var tr = tableBody.rows.length;
+	for (var i=0; i<tr; i++){
+	   var trEl = tableBody.rows[i];
+	   var tdEl = trEl.cells[ colNo ];			
+	   var textNode = tdEl.childNodes.item(0);
+	   
+	   var thisNumber = parseFloat( textNode.childNodes.item(0).value );
+	   //var thisNumber = parseFloat(textNode.data);
+	   if (!isNaN(thisNumber))
+		 result += thisNumber;
+	 }
+	 
+	 //var result = columnTotal("iTable", 4);
+	var total = document.getElementById('total');
+	console.log(result);
+	total.innerHTML = result;
+		
+ }
+ function tableGenerator(el, items, callbackCell, callbackRow, funComplete){
+	var fields=[], c=0;
+	for(var key in items[0]){
+		fields[c] = key;
+		c++;
+	}
+	
+	var table = createTag("table", {id:'iTable',
+		class:"table table-condensed table-bordered table-hover",
+		style:"padding:10px;"
+	});
+
+	var thead = createTag("thead", {});
+	var trh = createTag("tr", {});
+	for(var a=0; a<fields.length; a++){
+		var tdh = createTag("th", {}, fields[a]);
+		if(a == 3) tdh.innerHTML = '<input id="headCheck" type="checkbox"/>';
+		trh.appendChild( tdh );
+		thead.appendChild(trh);
+		table.appendChild(thead);
+	}
+
+	var tbody = createTag("tbody", {});
+	for(var i=0; i<items.length; i++){
+		var tr = createTag("tr", {});
+		for(var j=0; j<fields.length; j++){
+			var td = createTag("td", {class:"td", style:"padding:5px;"}, ""+items[i][ fields[j] ] );
+			tr.appendChild( callbackCell(td, j, i, table) );
+		}
+		tbody.appendChild( callbackRow(tr, i) );
+	}
+	table.appendChild(tbody);
+	document.getElementById(el).appendChild(table);
+	
+	columnTotal(el, 4);
+}
+window.onload = function(){
+	var myLabel1 = createTag("label", {class:"form-group"}, 'รายการ');
+	var myLabel2 = createTag("div", {class:"form-group"}, 'ติชม');
+	
+	var myDiv1 = createTag("div",{id:'myDive', class:"form-group"});
+	var myDiv2 = createTag("div",{id:'myDive', class:"form-group"});
+	var myDiv3 = createTag("div",{id:'myDive', class:"form-group"});
+	var select = createTag("select", {id:'list', class:"multiselect-ui form-control"});
+	var btnAdd = createTag("button", {class:"form-group btn btn-primary"}, "Add");
+	var textarea = createTag("textarea", {
+		id:"currentnote", 
+		rows:"5", 
+		id:"address", 
+		class:"form-group form-control"
+	});
+	
+	myDiv1.appendChild(myLabel1);
+	myDiv1.appendChild(select);
+	myDiv2.appendChild(btnAdd);
+	myDiv3.appendChild(myLabel2);
+	myDiv3.appendChild(textarea);
+
+	document.querySelectorAll('#content')[0].appendChild(myDiv1);
+	document.querySelectorAll('#content')[0].appendChild(myDiv3);
+	document.querySelectorAll('#content')[0].appendChild(myDiv2);
+	
+	loadData();
+} 
+function loadData(){
+	ajaxProcess('/getcustomers', 'GET', function(xmlhttp) {
+	var result = JSON.parse( xmlhttp.responseText );	 
+	var items = result.data;
+
+	var renderTo = 'tableContent';
+
+	tableGenerator(renderTo, items, 
+		function(td, colIndex, rowIndex){
+			if(colIndex == 0){
+				//td.innerHTML = '<span><a href="javascript:getId('+td.innerHTML+')">'+td.innerHTML+'<img style="padding-left:2px;" src="images/bubblehover.png" alt="no img" /></a></span>';
+			}
+			if(colIndex == 3){
+				//td.innerHTML = td.innerHTML+'<span style="padding-left:5px;"><input type="checkbox" onclick="checkboxClicked(this,'+colIndex+','+rowIndex+');"/></span>';
+			}
+			if(colIndex == 4){
+				td.innerHTML = '<span style="margin-right:10px;"><input type="number" value="'+td.innerHTML+'" style="width:90px;"/></span><span><input type="checkbox" onclick="checkboxClicked(this,'+colIndex+','+rowIndex+');"/></span>';
+			}
+			return td;
+			},
+		function(tr, index){
+			tr.onclick = function (row) {
+				if (tr.rowIndex == 0) return;
+				//var record = rowToJson(tr, getHeader(items[0]) );
+				//console.log( record );
+				//console.log( removeHtml(row.target.innerHTML) );
+				
+			}
+			return tr;
+		});
+	});
+	highlightAllCode();
+}  
+</script>
+<style>
+	#gridContainer { padding: 20px; }
+	.grid-row > div { 
+		/*border: 1px solid lightgrey;*/
+		padding: 7px;
+		/*background-color: aliceblue;*/
+		margin: 5px 0; 
+	}
+</style>
+</head>
+<body>
+
+<div class="panel">
+	
+	<div id="gridContainer">
+		
+		<div class="row grid-row">
+			<div class="col-sm-6">
+			<h4 class="panel-header">ข้อมูลลูกค้า</h4>
+				<div id="content"></div>
+			</div>
+			<div class="col-sm-6">
+			  <label for="inputFirstname" class="col-sm-3 col-form-label">First name:</label>
+			  <div class="col-sm-9">
+				<input type="text" class="form-control" id="firstname" placeholder="First name">
+			  </div>
+			</div>
+		</div>
+
+		<div class="row grid-row">
+			<div id="tableContent" class="col-sm-12"></div>
+			<div class="col-sm-10" style="text-align: right;">Total: </div>
+			<div id="total" class="col-sm-2"></div>
+		</div>
+	</div>
+</div>
+
+</body>
+</html>
